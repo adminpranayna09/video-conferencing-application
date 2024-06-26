@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/Vidxa-Logo.png">
+
+    <title>Vidxa Video Conferencing App</title>
+
+
+    <!----FireBase-->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+
+
+    <!------BootStrap CDN--------->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!---------FontAwesome CDN------------>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+
+    <div class="loader_bg">
+        <div class="loader"></div>
+    </div>
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <a class="navbar-brand" href="./main.html"><img src="./assets/images/Vidxa-Logo.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link home" href="main.html"><img src="./assets/images/home.png" alt=""> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link schadule" style="background-color: #6fdfdd4b;
+              width: 100px;
+              color: #0998f8;
+              font-weight: 500;
+              padding-left: 12px;" href="history.html"><img src="./assets/images/history.png" alt=""> History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link history" href="schadule.html"><img src="./assets/images/calendar.png" alt=""></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link setting" href="setting.html"><img src="./assets/images/setting.png" alt=""> </a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn " onclick="logout()">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!----===================================================------------>
+    <!------------------------Meeting Today start--------------------->
+    <!----===================================================------------>
+
+    <section class="meeting-today">
+        <div class="container">
+            <h3 class="text-center" style="padding-top: 30px;">Meeting History</h3>
+
+            <div class="container table-responsive py-5">
+                <table class="table ">
+                    <thead class="thead">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+
+                            <th scope="col">Start-Date</th>
+                            <th scope="col">End-Date</th>
+                            <th scope="col">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody id="Meeting_History">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!----===================================================------------>
+    <!------------------------Meeting Today end--------------------->
+    <!----===================================================------------>
+
+
+
+
+    <!----===================================================------------>
+    <!----===================================================------------>
+    <!----===================================================------------>
+    <!----===================================================------------>
+    <!----===================================================------------>
+
+    <script>
+        setTimeout(function() {
+            $('.loader_bg').css('display', 'none');
+        }, 3000);
+    </script>
+
+    <!---Firebsae-->
+    <script src="./js/firebase.js"></script>
+    <!-- <script src="./js/login.js"></script> -->
+    <script src="./js/meeting-history.js"></script>
+
+    <!--------BOOTSTRAP JS CDN--------->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

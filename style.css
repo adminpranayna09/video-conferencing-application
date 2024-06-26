@@ -1,0 +1,429 @@
+.loader_bg {
+    position: fixed;
+    z-index: 999999;
+    background: #6FDFDE;
+    width: 100%;
+    height: 100%;
+}
+
+.loader {
+    border: 0 solid transparent;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: calc(50vh - 75px);
+    left: calc(50vw - 75px);
+}
+
+.loader::before,
+.loader::after {
+    content: '';
+    border: 1em solid #fff;
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: loader 2s linear infinite;
+    opacity: 0;
+}
+
+.loader::before {
+    animation-delay: .5s;
+}
+
+@keyframes loader {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #6FDFDE;
+    font-family: 'Poppins', sans-serif;
+}
+
+nav {
+    border-radius: 10px;
+    width: 95%;
+    height: 90px;
+    margin-top: 20px;
+    margin-left: 40px;
+    background-color: #ffff;
+    font-family: 'Poppins', sans-serif;
+}
+
+nav img {
+    height: 70px;
+}
+
+nav ul {
+    margin-right: 220px;
+}
+
+nav ul li .home img {
+    height: 18px;
+    margin-bottom: 05px;
+}
+
+nav ul li .schadule img {
+    height: 18px;
+    margin-bottom: 0px;
+}
+
+nav ul li .calander img {
+    height: 18px;
+    margin-bottom: 05px;
+}
+
+nav ul li .history img {
+    height: 18px;
+    margin-bottom: 05px;
+}
+
+nav ul li .setting img {
+    height: 18px;
+    margin-bottom: 05px;
+}
+
+nav ul li a {
+    margin: 20px;
+    color: #6FDFDE;
+    border-radius: 50px;
+}
+
+nav button {
+    padding: 10px 50px;
+    margin-top: 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: none;
+    background-color: #6FDFDE;
+    color: #ffff;
+    cursor: pointer;
+}
+
+
+/*---------------Main Section------------------*/
+
+.main {
+    box-sizing: border-box;
+}
+
+.main .container {
+    background-color: #fff;
+    height: 110%;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+.main .row {
+    margin-left: 120px;
+}
+
+.main .user {
+    background-color: transparent;
+}
+
+.main img {
+    background-color: #fd0000e1;
+    padding: 30px;
+    height: 120px;
+    border-radius: 16px;
+    margin-top: 20px;
+}
+
+.main .user {
+    background: none;
+}
+
+.main h5 {
+    margin-left: 5px;
+    margin-top: 10px;
+    color: rgb(85, 85, 85);
+}
+
+.main h3 {
+    margin-top: 120px;
+    color: #555;
+}
+
+.main .card p {
+    font-size: 12px;
+}
+
+.main .card .card-title {
+    color: rgb(82, 82, 82);
+}
+
+.schadule-main .container {
+    background-color: #fff;
+}
+
+.modelBtn {
+    margin-top: 35px;
+    float: right;
+}
+
+.container .table thead {
+    background-color: #6FDFDE;
+}
+
+.container .btn-custom {
+    background-color: transparent;
+    color: #6FDFDE;
+    margin-right: 15px;
+    border: 1px #6FDFDE solid;
+}
+
+.meeting-today .container {
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: #ffff;
+    height: 100%;
+}
+
+.meeting-today .btn {
+    margin-left: 15px;
+}
+
+.schedule .container {
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: #ffff;
+    height: 100%;
+}
+
+.setting-main .container {
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: #ffff;
+    height: 110%;
+}
+
+.setting-main .container .img-section {
+    height: 190px;
+    margin-top: 19px;
+    border-radius: 50%;
+}
+
+.setting-main .container img {
+    height: 220px;
+    width: 220px;
+    border-radius: 50%;
+    margin-top: 20px;
+}
+
+.setting-main input {
+    padding: 10px;
+    background: #ffffff;
+}
+
+.setting-main h5 {
+    color: #555;
+    margin-top: 10px;
+}
+
+.setting-main p {
+    font-size: 12px;
+    color: #555;
+}
+
+.setting-main input {
+    width: 50%;
+    margin-top: 2%;
+}
+
+.col-md-12.profile-input {
+    margin-bottom: 10%;
+}
+
+.setting-main button {
+    margin-top: 30px;
+}
+
+.setting-main .profile-input input {
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
+
+.setting-main .profile-input .privacy {
+    margin-top: 65px;
+}
+
+
+/*Login page*/
+
+.main-login {
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 0.781), rgba(255, 253, 253, 0.829));
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-form h2 {
+    font-size: 30px;
+    color: #fff;
+}
+
+.login-form {
+    width: 460px;
+    background: #00b0f0bb;
+    height: 600px;
+    padding: 80px 40px;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -5%);
+}
+
+.login-form img {
+    height: 80px;
+}
+
+.txtb {
+    border-bottom: 0.2px solid #ffff;
+    position: relative;
+    margin: 30px 0;
+}
+
+.txtb input {
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    width: 100%;
+    outline: none;
+    background: none;
+    padding: 0 15px;
+    height: 30px;
+}
+
+.main-login .login-form .btn {
+    padding: 10px 50px;
+    margin-top: 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: none;
+    background-color: #ffffff;
+    color: #007bff;
+    cursor: pointer;
+}
+
+
+/*=====------------Responsiveness--------------=====*/
+
+@media screen and (max-width: 1280px) {
+    .setting-main input {
+        margin-right: -10px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    nav {
+        margin-left: 26px;
+    }
+    nav ul {
+        background-color: #ffffff;
+        border-radius: 20px;
+        margin-right: 20px;
+    }
+    nav ul li a {
+        width: 70px;
+    }
+    nav ul li a img {
+        height: 120px;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    nav {
+        background-color: #ffffff;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        margin-left: 19px;
+        background-color: #fff;
+        z-index: 1;
+    }
+    nav button {
+        margin-bottom: 30px;
+    }
+    nav .navbar-brand {
+        padding-bottom: 10px;
+    }
+    nav ul li button {
+        background-color: #007bff;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    nav {
+        margin-right: -20px;
+    }
+    nav button {
+        margin-bottom: 40px;
+    }
+    .main .container {
+        width: 90%;
+    }
+    .meeting-today .container {
+        width: 89%;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    nav {
+        margin-left: 10px;
+    }
+    nav .navbar-brand img {
+        padding-bottom: 10px;
+    }
+    .schadule .container {
+        width: 80%;
+        margin-left: 2%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .main .container .row {
+        margin-left: 50px;
+    }
+    .meeting-today.container {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    nav {
+        margin-left: 12px;
+    }
+    nav button {
+        margin-bottom: 30px;
+    }
+    nav .navbar-brand img {
+        padding-bottom: 10px;
+    }
+    .setting-main .container {
+        width: 90%;
+    }
+    .main .row {
+        padding-left: 27px;
+    }
+}

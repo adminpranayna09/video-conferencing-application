@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/Vidxa-Logo.png">
+
+    <title>Vidxa Video Conferencing App</title>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+
+
+
+
+    <!------BootStrap CDN--------->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!---------FontAwesome CDN------------>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="loader_bg">
+        <div class="loader"></div>
+    </div>
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <a class="navbar-brand" href="./main.html"><img src="./assets/images/Vidxa-Logo.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link home" style="background-color: #e49b9b38;
+              width: 100px;
+              font-size: 15px;
+              font-weight: 500;
+              color: #fd0000;
+              padding-left: 12px;" href="main.html"><img src="./assets/images/home.png" alt=""> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link schadule" href="history.html"><img src="./assets/images/history.png" alt=""></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link history" href="schadule.html"><img src="./assets/images/calendar.png" alt=""></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link setting" href="setting.html"><img src="./assets/images/setting.png" alt=""></a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-primary " onclick="logout()">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!----===================================================------------>
+    <!--------------------------Main Section Start----------------------->
+    <!----===================================================------------>
+
+    <section class="main">
+        <div class="container">
+            <div id="user_data">
+
+
+
+            </div>
+
+            <div class="row">
+
+
+
+                <div class="col-md-4 ">
+                    <div class="pointer newMeetCode"><img src="./assets/images/add.png" alt=""></div>
+                    <h5>New meeting</h5>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="join-meet-pc"><img src="./assets/images/friends.png" style="background-color: #097cff;" alt=""></div>
+                    <h5>Join meeting</h5>
+
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <a href="./setting.html"><img src="./assets/images/follow.png" style="height:119px; background-color: #02a820e3;" alt=""></a>
+                    <h5>User Profile </h5>
+
+                </div>
+            </div>
+
+            <h3 class="text-center">Meetings Today</h3>
+
+            <div class="container table-responsive py-5">
+                <table class="table ">
+                    <thead class="thead-none">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Meeting Id</th>
+                            <th scope="col">Date/Time</th>
+
+                            <th scope="col">Join</th>
+                        </tr>
+                    </thead>
+                    <tbody id="meeting_today">
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+        </div>
+    </section>
+
+
+
+
+    <!----===================================================------------>
+    <!--------------------------Main Section End----------------------->
+    <!----===================================================------------>
+
+    <!-- New Meeting Join -->
+
+    <div class="modal fade" id="newMeetCodeModal" tabindex="-1" role="dialog" aria-labelledby="newMeetCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newMeetCodeModalLabel">Copy this to invite others<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button></h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row ">
+                            <div class="col-sm-12">
+                                <p>Copy and share this code with people that you want to meet with</p>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <span id="meet-code"></span> <span class="copy-code"><svg style="width:24px;height:24px; color:#1a6ef6;" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" />
+            </svg></span>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer text-center" style="justify-content: center;">
+                    <button type="button" id="continue_meet" class="btn btn-primary btn-rounded btn-sm">Continue</button>
+
+                    <div> <a href="mailto:?subject=You%20are%20invited%20for%20vidxa%20Meeting&amp;body=vidxa%20is%20inviting%20you%20to%20a%20scheduled%20meeting.%0D%0A%0D%0AMeeting%20Link:%20https://meet.jit.si/077315730" class="btn btn-rounded btn-md meet-btn-warning btn_invite"
+                            style="color:red">Invite via
+email</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- EndFile New Meeting Join -->
+
+    <!-- EndFile join Meeting Join -->
+    <div class="modal fade" id="joinMeetModal" tabindex="-1" role="dialog" aria-labelledby="joinMeetModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="joinMeetModalLabel">Join a meeting <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button></h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="join_meeting_code" class="">Meeting ID <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="join_meeting_code" value="" placeholder="Meeting Code">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name" class="">Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Your name" id="name" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="join-meet-act" class="btn btn-primary btn-rounded btn-sm">Join</button>
+                    <button type="button" class="btn btn-secondary gray-button btn-rounded btn-sm" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- EndFile join Meeting Join -->
+
+
+    <!----===================================================------------>
+    <!----------------------------Meetings Today------------------------->
+    <!----===================================================------------>
+
+
+
+    <!----===================================================------------>
+    <!----------------------------Meetings Today End--------------------->
+    <!----===================================================------------>
+
+
+
+    <!----===================================================------------>
+    <!----===================================================------------>
+    <!----===================================================------------>
+    <!----===================================================------------>
+    <!----===================================================------------>
+    <!----===================================================------------>
+    <!----===================================================------------>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        setTimeout(function() {
+            $('.loader_bg').css('display', 'none');
+        }, 3000);
+    </script>
+
+
+    <script>
+        $(document).on("click", "#showMyName", function() {
+
+
+            var elt_data1 = document.querySelector('#user_data').getAttribute("mynameis")
+            alert(elt_data1)
+
+            var elt = document.getElementById("name");
+
+            elt.innerHTML += "sdkfhsdkjfhsdhf";
+
+
+        });
+
+
+
+
+        var is_schedule = false;
+
+        $(document).on("click", "#join-meet-act", function() {
+            var join_meeting_code = $("#join_meeting_code").val();
+            var name = $("#name").val();
+
+            if ($("#join_meeting_code").val() == "") {
+                $("#join_meeting_code").addClass("error");
+            } else {
+
+
+                //  loader.remove("body");
+
+                $("#joinMeetModal").modal("hide");
+                joinMeeting(join_meeting_code, name);
+
+
+            }
+        });
+
+
+
+
+        $(document).on("click", ".join-meet-pc", function() {
+            $("#joinMeetModal").modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            })
+            $("#joinMeetModal").find("form")[0].reset();
+        });
+
+
+
+        $(document).on("click", ".rejMeeting", function() {
+            var id = $(this).attr("data-meeting")
+            joinMeeting(id, "");
+
+            //window.alert(id)
+        })
+
+        $(document).on("click", "#continue_meet", function() {
+            if (meetCode) {
+                $("#newMeetCodeModal").modal("hide");
+                joinMeeting(meetCode, "");
+                writeUserData(getDateTime(), meetCode, getDateTime())
+            } else {
+                $("#newMeetCodeModal").modal("hide");
+                site.message("Meeting code is not generated.", 0);
+            }
+
+        });
+
+
+
+
+
+
+
+
+        function stringGen(len) {
+            var text = "";
+            var charset = "abcdefghijklmnopqrstuvwxyz";
+            for (var i = 0; i < len; i++)
+                text += charset.charAt(Math.floor(Math.random() * charset.length));
+            return text;
+        }
+
+        function genMeetingCode() {
+            return "vidxa-" + stringGen(3) + stringGen(3) + stringGen(2);
+        }
+
+        $(document).on("click", ".copy-code", function() {
+            copyer("meet-code");
+        });
+
+
+
+        function copyer(containerid) {
+            var elt = document.getElementById(containerid);
+            if (document.selection) { // IE
+                if (elt.nodeName.toLowerCase() === "input") {
+                    document.getElementById(containerid).select();
+                    document.execCommand("copy");
+                } else {
+                    var range = document.body.createTextRange();
+                    range.moveToElementText(document.getElementById(containerid));
+                    range.select();
+                    document.execCommand("copy");
+                }
+
+            } else if (window.getSelection) {
+                if (elt.nodeName.toLowerCase() === "input") {
+                    document.getElementById(containerid).select();
+                    document.execCommand("copy");
+                } else {
+                    var range_ = document.createRange();
+                    range_.selectNode(document.getElementById(containerid));
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range_);
+                    document.execCommand("copy");
+                }
+            }
+        }
+
+
+        $(document).on("click", ".newMeetCode", function() {
+            meetCode = genMeetingCode();
+            $("#meet-code").text(meetCode);
+            $("#newMeetCodeModal").modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            })
+        });
+
+
+
+
+        $(document).on("click", "#continue_meet", function() {
+            if (meetCode) {
+                $("#newMeetCodeModal").modal("hide");
+                joinMeeting(meetCode, "");
+            } else {
+                $("#newMeetCodeModal").modal("hide");
+                site.message("Meeting code is not generated.", 0);
+            }
+
+        });
+
+        function joinMeeting(code, name) {
+            var meetUrl = meeting_BASEURL + code;
+
+            if (meetUrl != null) {
+                newwindow = window.open(meetUrl, "Vidxa", 'height=' + $(document).height() + ',width=' + $(document).width());
+                if (window.focus) {
+                    newwindow.focus()
+                }
+            }
+        }
+    </script>
+
+
+    <!---Firebsae-->
+    <script src="./js/firebase.js"></script>
+    <script src="./js/app.js"></script>
+    <!-- <script src="./js/login.js"></script> -->
+    <script src="./js/constants.js"></script>
+    <!--------BOOTSTRAP JS CDN--------->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

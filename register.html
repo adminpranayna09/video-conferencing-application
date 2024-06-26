@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/Vidxa-Logo.png">
+
+    <title>Vidxa Video Conferencing App</title>
+
+    <!----FireBase-->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+
+
+    <!------BootStrap CDN--------->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!---------FontAwesome CDN------------>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+
+
+
+    <section class="main-login">
+
+        <center>
+
+
+
+            <div class="container" style="padding-top: 90px;">
+                <div class="login">
+                    <div class="row">
+                        <div class="col-md-12">
+
+
+                            <div class="login-form">
+                                <img src="./assets/images/Vidxa-Logo.png" style=" margin-bottom: 20px;" alt="">
+
+                                <div id="login_div" class="main-div">
+                                    <h3>Vidxa Video Conferencing App</h3>
+                                    <h2>Register</h2>
+                                    <!--<input type="email" value="admin@admin.com" placeholder="Email..." id="email_field" /><br><br>
+        <input type="password" value="123456" placeholder="Password..." id="password_field" /><br>
+        --->
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-lg" placeholder="Enter Your Name" id="name_field">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control form-control-lg" placeholder="Enter Your Email" id="email_field"></i>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-lg" name="Password" placeholder="Enter Your Password" id="password_field">
+                                    </div>
+
+                                    <button class="btn btn-info" onclick="register()">Register</button><br>
+
+                                    <div class="mt-3 text-center font-weight-light">Already have an account? <a class="text-info pointer font-weight-medium" href="index.html">Login here</a></div>
+
+
+                                    <div class="mt-3 text-center font-weight-light join-meet-act">Have a code ? <a style=" margin-bottom: 120px;" class="text-info pointer font-weight-medium" href="javascript:void(0)">Join a meeting</a></div>
+
+
+                                </div>
+
+                                <div id="user_div" class="loggedin-div" style="display: none;">
+                                    <button class="btn btn-info" onclick="logout()">Logout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </center>
+
+    </section>
+
+
+
+    <div class="modal fade" id="withoutAuthMeetModal" tabindex="-1" role="dialog" aria-labelledby="withoutAuthMeetModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 40%;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="withoutAuthMeetModalLabel">Join Meeting<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button></h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="w_meet_id" class="">Meeting ID <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Vidxa-xxxxxxxx" name="w_meet_id" id="w_meet_id" value="">
+                                    <span class="error-msg-text meet-id-err"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="meet_join_name" class="">Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="meet_join_name" id="meet_join_name" value="" placeholder="Enter your name">
+                                    <span class="error-msg-text meet-name-err"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="join-meeting-wauth" class="btn btn-primary btn-rounded btn-sm">Join</button>
+                    <button type="button" class="btn btn-secondary btn-rounded gray-button btn-sm" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).on("click", ".join-meet-act", function() {
+            $("#withoutAuthMeetModal").modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            })
+        });
+
+
+
+        $(document).on('click', "#join-meeting-wauth", function() {
+            var meetId = $.trim($("#w_meet_id").val());
+            var fullname = $.trim($("#meet_join_name").val());
+            var joinTag = true;
+            if (meetId == "") {
+                joinTag = false;
+                $("#w_meet_id").addClass("error");
+                $(".meet-id-err").text("Provide your meeting code to join meeting");
+            } else {
+                $("#w_meet_id").removeClass("error");
+                $(".meet-id-err").text("");
+            }
+            if (fullname == "") {
+                joinTag = false;
+                $("#meet_join_name").addClass("error");
+                $(".meet-name-err").text("Enter your name");
+            } else {
+                $("#meet_join_name").removeClass("error");
+                $(".meet-name-err").text("");
+            }
+
+
+            $("#withoutAuthMeetModal").modal("hide");
+            joinMeeting(meetId, fullname);
+
+
+
+
+
+        });
+
+
+
+        function joinMeeting(code, name) {
+            var meetUrl = meeting_BASEURL + code;
+
+            if (meetUrl != null) {
+                newwindow = window.open(meetUrl, "Vidxa", 'height=' + $(document).height() + ',width=' + $(document).width());
+                if (window.focus) {
+                    newwindow.focus()
+                }
+            }
+        }
+    </script>
+
+    <!---Firebsae-->
+    <script src="./js/firebase.js"></script>
+    <script src="./js/register.js"></script>
+    <script src="./js/constants.js"></script>
+    <!--------BOOTSTRAP JS CDN--------->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
